@@ -1,5 +1,6 @@
 package com.example.user.entity;
 
+import com.example.user.dto.SignupUserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -56,5 +57,14 @@ public class User {
     public enum Role {
         ROLE_ADMIN,
         ROLE_USER
+    }
+
+    public static User fromDTO(SignupUserDTO dto) {
+        User user = new User();
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setNickname(dto.getNick_name());
+
+        return user;
     }
 }
