@@ -1,0 +1,131 @@
+-- news schema create
+create database news;
+
+-- news schema use
+use news;
+
+-- category, source, article table create
+-- category table : id(auto_increment), name(varchar), memo(varchar), created_at, updated_at
+
+create table category(
+`id` bigint not null auto_increment primary key,
+`name` varchar(50) not null,
+`memo` varchar(500),
+`created_at` timestamp not null default current_timestamp,
+`updated_at` timestamp not null default current_timestamp on update current_timestamp
+);
+
+drop table if exists category;
+
+insert into category(`name`) values('general');
+
+-- table name : source
+-- id: bigint(auto_increment)
+-- "sid": "abc-news",
+-- "name": "ABC News",
+-- "description": "Your trusted source for breaking news, analysis, exclusive interviews, headlines, and videos at ABCNews.com.",
+-- "url": "https://abcnews.go.com",
+-- "category": "general",
+-- "language": "en",
+-- "country": "us"
+-- created_at, updated_at
+/*
+alter table `source`
+add constraint uq_source_name unique(`name`); -- name coulmn unique 속성 추가
+*/
+create table source(
+	`id` bigint not null auto_increment primary key,
+    `sid` varchar(100),
+    `name` varchar(100) unique,
+    `description` varchar(1000),
+    `url` varchar(1000),
+    `category` varchar(50),
+    `language` varchar(50),
+    `country` varchar(10),
+    `created_at`timestamp not null default current_timestamp,
+    `updated_at`timestamp not null default current_timestamp on update current_timestamp
+);
+
+-- article
+-- id : bigint auto_increment
+-- "source": bigint
+-- category : bigint
+-- "author": varchar(50)
+-- "title": varchar(200)
+-- "description": text
+-- "url": varchar(1000)
+-- "urlToImage": varchar(1000)
+-- "publishedAt": varchar(100)
+-- "content": text
+-- created_at
+-- updated_at
+
+-- drop table if exists article;
+
+create table article(
+	`id` bigint not null auto_increment primary key,
+    `source_id` bigint,
+    `category_id` bigint,
+    `author` varchar(255),
+    `title` varchar(500),
+    `description` text,
+    `url` varchar(500) unique,
+    `url_to_image` varchar(500),
+    `published_at` varchar(100),
+    `content` text,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp on update current_timestamp,
+    constraint foreign key(`source_id`) references `source`(`id`),
+    constraint foreign key(`category_id`) references `category`(`id`)
+);
+
+-- alter table : 테이블의 속성을 수정, 보완하는 명령
+alter table article add constraint foreign key(`source_id`) references `source`(`id`);
+alter table article add constraint foreign key(`category_id`) references `category`(`id`);
+
+/*
+alter table aritcle rename to article;
+*/
+
+-- drop table if exists article;
+
+-- update category
+-- set id = '7'
+-- where id = '8';
+
+use news;
+
+show create table article;
+show create table category;
+show create table source;
+
+select * from article;
+select * from category;
+select * from source;
+
+-- update category set name = 'entertainment' where id = 4;
+-- 숙제 : notepad에 create table 만들어오기. create table users(); 필요한 필드가 무엇이 있을지 생각해보고 적어오기.
+
+-- user-profile에 대한 테이블은 따로 만들것.
+create database qktmzmfks9;
+
+use qktmzmfks9;
+
+-- user : id(순번), idemail(id), password, nickname, 생성일, 수정일, 권한, 활동여부, super admin, email_verification, last_login_at
+-- user profile : 생년월일, 성별, 정보, 사진, 전화번호, 직장, 주소
+
+create table `users` (
+	`id` bigint not null auto_increment primary key,
+    `email` varchar(255) not null unique,
+    `password` varchar(255) not null,
+    `nickname` varchar(100) not null,
+    `created_at` timestamp not null default current_timestamp,
+    `updated_at` timestamp not null default current_timestamp on update current_timestamp,
+    `role` enum('ROLE_ADMIN', 'ROLE_USER') not null default 'ROLE_USER',
+    `is_active` boolean default true,
+    `last_login_at` datetime default NULL
+);
+
+create table `user-profile` (
+	
+);
