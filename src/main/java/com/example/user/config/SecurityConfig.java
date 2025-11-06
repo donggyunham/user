@@ -9,7 +9,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 // Spring Application의 환경설정의 일부를 담당하는 클래스.
 @Configuration
 public class SecurityConfig {
-
+    /**
+     *
+     * @return
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

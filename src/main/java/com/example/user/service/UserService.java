@@ -16,6 +16,11 @@ public class UserService {
     private final UserRepository userRepository;    // 자동 주입(AutoWired), @RequiredArgsConstructor과 같이 사용해야 자동주입.
     private final PasswordEncoder passwordEncoder;  // 자동 주입
 
+    /**
+     *
+     * @param signupUserDTO
+     * @return
+     */
     @Transactional
     public User signup(SignupUserDTO signupUserDTO) {
         // 이메일 중복 체크
