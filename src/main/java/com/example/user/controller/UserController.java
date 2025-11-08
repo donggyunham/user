@@ -148,10 +148,10 @@ public class UserController {
         } catch (IllegalArgumentException e) {
             UserApiResponse<String> response = new UserApiResponse<>(
                     "error",
-                    "데이터베이스 저장중에 알 수 없는 에러가 발생했습니다.",
+                    e.getMessage(),
                     null
             );
-            return ResponseEntity.internalServerError().body(response);
+            return ResponseEntity.badRequest().body(response);
         }catch (Exception e){
             UserApiResponse<String> response = new UserApiResponse<>(
                     "error",
