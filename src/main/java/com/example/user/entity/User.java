@@ -1,16 +1,17 @@
 package com.example.user.entity;
 
+import com.example.user.dto.LoginUserResponseDTO;
 import com.example.user.dto.SignupUserDTO;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
 
-@Entity     // jpa repository object를 통해서 데이터를 저장할 오브젝트임을 명시
+@Entity                 // jpa repository object를 통해서 데이터를 저장할 오브젝트임을 명시
 @Table(name = "users")  // 테이블 지정
 @Getter
 @Setter
-@NoArgsConstructor  // 파라미터가 없는 생성자
-@AllArgsConstructor // 모든 필드를 입력으로 받는 생성자
+@NoArgsConstructor      // 파라미터가 없는 생성자
+@AllArgsConstructor     // 모든 필드를 입력으로 받는 생성자
 public class User {
 
     @Id
@@ -66,5 +67,13 @@ public class User {
         user.setNickname(dto.getNick_name());
 
         return user;
+    }
+
+    public static LoginUserResponseDTO toLoginuserResponse (User user){
+        LoginUserResponseDTO dto = new LoginUserResponseDTO();
+        dto.setId(user.getId());
+        dto.setEmail(user.getEmail());
+        dto.setNickname(user.getNickname());
+        return dto;
     }
 }

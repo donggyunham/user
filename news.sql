@@ -129,3 +129,6 @@ create table `users` (
 create table `user-profile` (
 	
 );
+
+select *
+from users;

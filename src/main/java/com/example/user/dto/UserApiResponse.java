@@ -10,7 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Builder
 public class UserApiResponse<T> {
-    private String status;  // 성공 또는 에러에 대한 상태값.
+    private String status;  // 성공("success") 또는 에러("error")에 대한 상태값.
     private String message; // 성공 또는 에러에 대한 부가 메시지를 전송.
     private T data;         // 전송할 데이터 오브젝트.
 }
